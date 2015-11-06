@@ -1,0 +1,13 @@
+#!/bin/bash
+
+actualbranch=`git symbolic-ref --short HEAD 2>&1`
+actualbranch_status=$?
+remotebranch=refs/for/master
+
+# If the status code isn't 0 then show the error message and exit
+if [ "$actualbranch_status" -ne "0" ] ; then
+	echo $actualbranch
+	exit 1
+fi
+
+git push origin $actualbranch:$remotebranch
